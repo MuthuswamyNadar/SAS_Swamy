@@ -1,0 +1,138 @@
+
+*************************  BASE SAS   **************************
+
+
+
+***DATA STEPS
+
+1.creation of data 
+  (using input & cards)
+
+2.Input methods
+  (list input method, column input method, 
+   formatted input method, name input method)
+
+3.INFILE statement options 
+  (FLOWOVER, MISSOVER, STOPOVER, TRUNCOVER)
+
+4.character functions 
+  (scan,substr,compress,translate,tranword,
+   find,upcase,propcase,lowcase,compbl,
+   index,strip,trim)    
+         
+5.numeric functions  
+  (int,ceil,floor,sum,min,max,round,range,
+   largest,smallest,anydigit,mod)  
+   
+6.date function                                  
+  (intck,intnx,datepart,timepart,today,day,
+   month,year)
+
+7.concatenation function
+  (cat,catt,cats,catx)
+
+8. missing & not missing
+  
+9.conditional statement
+  if 
+  if then 
+  if then else
+  if then do                                                                                                                                                     
+  where  
+  select when otherwise                                                                                                                                   
+  first dot, last dot  
+
+10.operators
+   (and, or, in, like, contain, between, greater than, 
+    less than, equal to, not equal to)
+
+11.statements
+   (keep, drop, rename, length, retain, label, title, 
+    footnote)                                           
+
+12.option
+   (firstobs, obs, keep, drop)                                                                                                                                                    
+
+13.importing and exporting data 
+   (proc import, proc export)                                                                                       
+                                                                                                                                                                                                      
+14.creating library 
+   libname
+
+15.combining dataset vertically
+   set                                                                                                                               
+
+16.merging dataset horizontally
+   merge                                                                                                                         
+
+17.PDV 
+   (Program Data Vector)
+
+18.Converting variables types
+   (input, put)
+
+***PROC STEPS
+
+19.procsteps
+    (proc freq, proc means, proc sort, proc print, proc transpose,
+     proc format, proc univariate, proc rank, proc append,
+     proc content, proc summary)     
+
+
+********************     ADVANCE SAS    *************************
+
+
+20.SQL
+   (creating table, adding new var, condition-statement,
+     function, operators, grouping, sorting) 
+
+   (SQL Joins : inner join, leftjoin, right join, full join)
+
+
+21.MACRO
+    Introduction 
+    Types ( %let %put, %Macro % Mend , Call symput)    
+    Positional parameter & Keyword parameter 
+    Variable Types (Global & Local)
+    
+
+22.DO LOOP
+   (Iterative do loop, Do until, Do while )                  
+
+23.Array
+   
+
+********************     Clinical SAS   *************************
+
+24.Clinical trail phases                    
+                                                                                   
+25.CRF
+
+26.CDISC                            
+
+27.PROTOCOL
+                                                                                   
+28.SPEC SHEET
+
+29.PROJECT
+   (SDTM,ADAM,TABLE,LISTING)
+
+********************    ADDITIONAL ACTIVITIES  *************************
+
+30.Communication building sessions
+
+31.Tests
+
+32.Interview Prepration & Mock Interviews
+
+33.cv making & review
+
+34.How to effectively apply for jobs using Linkdin 
+
+35.Base SAS Prepration
+
+36.Doubt discussion
+
+37.Exam & Certification
+
+38.Global SAS Exam Preparation

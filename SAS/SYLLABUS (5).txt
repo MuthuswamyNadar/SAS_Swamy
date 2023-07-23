@@ -1,0 +1,99 @@
+
+	*************************  BASE SAS   **************************
+
+
+
+***DATA STEPSt
+
+1.creation of data (using input and cards)
+
+2.functions------ 
+character functions------- 
+(scan,substr,compress,translate,tranwrd,find,upcase,propcase,lowcase)             
+         ------ numeric functions  -------
+(int,ceil,floor,sum,min,max,round,range,largest,smallest,anydigit)                                       
+         ------ date function      --------
+(intck,intnx,datepart,timepart)
+ -------- cats,catx
+ -------- missing, not missing
+  
+3.conditional statement-------- if  
+                    -------- if then 
+                     -------- if then else
+                     -------- if then do 
+			 -------- where                                                                                                                                     
+                      
+
+4.operators----------( and,or,like,contain,between,greater than , 
+less than,equal to,not equal to)
+
+
+5.statements ------------- 
+(keep,drop,rename,length,retain,label,title ,footnote,format)  
+       
+ 6.option ----------- (firstobs,obs)                                                                                                                                                    
+
+7.importing and exporting data ----------- 
+(proc import, proc export)                                                                                       
+                                                                                                                                                                                                      
+8.creating library ---------- libname
+
+
+9.combining dataset vetically---------set                                                                                                                               
+
+10.merging dataset horizontaly---------merge                                                                                                                       
+
+
+
+ODS & Chart
+
+
+***PROC STEPS
+
+11.procsteps----------
+(proc freq,proc means,proc sort,proc print,
+ proc transpose, proc format,proc univeriate,
+ proc rank,proc append,proc content)     
+
+Proc freq ;
+freq(numbers) cumulativefreq(repeated time) Cumpercenta
+
+Proc means
+Numberic calculate mean,median ,count,sum,Number of obs,std dev ,Min,Max
+
+Proc sort;
+
+ NODUPKEY option removes duplicate observations where value of a variable listed in 
+BY statement is repeated while NODUP option 
+removes duplicate observations where values in all the variables 
+
+
+Proc Univaritate -fieve low five high ,range mena median mode
+
+
+
+********************     ADVANCE SAS    *************************
+
+
+12.SQL----------------
+------( creating dataset,adding new var., condition statement
+,Distinct & Count function, 
+                       
+      INOBS=,inner join,leftjoin,right join,full join) 
+
+13.MACROs-----------------(%let %put, %Macro % Mend ,Call symput, Into)      
+
+14.DO LOOP----------------(Ittrative do loop, Do until, Do while )                  
+
+15.Array
+
+Mock Interview
+Linkedin
+(pitch,Resume cv,Email-writing)
+
+
+* means mean the average of number(mean stddevaiton minimum maximum)
+proc means data= sashelp.class;
+var age height;
+run;
+* proc freq is used to summarise the frequency

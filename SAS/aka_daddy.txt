@@ -1,0 +1,1226 @@
+ 
+proc export data=sashelp.class outfile="/home/u61526503/moo2/sasww.sas" dbms=csv;
+run;
+proc import datafile="/home/u61526503/moo2/sasww.sas" dbms=csv replace out=tommy; 
+run;
+
+
+--------------------------
+libname swamy "/home/u61526503/moo2";
+
+data swamy.class;
+set sashelp.class;
+run;
+
+
+
+
+
+
+
+
+the sum of all values divided by the total number of values
+mean meddian smallest highest
+
+{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{------------- Transpose -------------}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+
+data school;
+input Name $ class age Roll_number sex $;
+cards;
+Piyush 12 20 1011 M
+Muthu 30 20 1022 F
+Zombie 30 40 1055 M
+;
+run;
+
+proc print data=school;
+run;
+
+/* coverting horizontal table to vertical */
+
+ID: Means Column Name
+VAR: Means Number of Observation
+
+proc transpose data=school out=new;
+id Name;
+var Roll_number class Age sex;
+run;
+
+proc sort data=new out=out_ver;
+by _Name_;
+run;
+
+/* converting vertical to horizontal */
+
+proc transpose data=out_ver out=new_vert; 
+id _Name_;
+var Piyush Muthu Zombie;
+run;
+
+name(var name)
+proc print data=out_ver;
+run;
+proc print data=school;
+run;
+
+{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{------------- Transpose(normalization) -------------}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+
+
+data income;
+input id year income Name$;
+cards;
+10 2002 30000 swamy
+11 2003 40000 John
+12 2004 50000 Kalcutta
+;
+run;
+
+{name is replace _Name_ to name and prefix change the incomes}
+
+# converted the vertical data to Horizontal
+
+proc transpose data=income out=income1 name=mynames prefix=incomes;
+ID year;
+var income id Name;
+by id;
+run;
+
+
+{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{------------- Proc (SQL) -------------}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+
+---------1} Select all proc sql-----
+proc sql;
+select *
+from welcome;
+run;
+
+---------2} Select particular sql-----
+proc sql;
+select name,age,weight from sashelp.class;
+run;
+
+---------3} order by -----
+proc sql;
+select *
+from sashelp.class
+order by age;
+run;
+
+
+---------4} New Variable -----
+proc sql;
+select name as myname,age as yourage,(age*2) as doubleage 
+from sashelp.class;
+run;
+
+
+---------5} Where SQL -----
+
+proc sql;
+select *
+from sashelp.class
+where sex="M";
+run;
+
+---------5} Out obs -----
+
+proc sql outobs=10;
+select * from sashelp.class;
+quit;
+
+-------6} No DUP keys
+
+proc sql;
+create table swamy as
+select * from sashelp.class;
+quit;
+
+proc sort data=swamy Nodupkey;
+by age;
+run;
+
+***********using and
+proc sql;
+select *
+from sashelp.class
+where sex="M" and age <=13;
+run;
+
+***********using or
+
+proc sql;
+select *
+from sashelp.class
+where sex="F" or age<= 12;
+quit;
+
+***********using between
+
+proc sql;
+select *
+from sashelp.class
+where age between 11 and 13;
+quit;
+
+
+---------5} Matahmatecial -----
+
+
+***********using Sum
+
+proc sql;
+select sum(age) as myage,age
+from sashelp.class
+group by age;
+run;
+
+***********using count
+
+proc sql;
+select count(height) as mineheight,height
+from sashelp.class
+order by age;
+quit;
+
+***********using Min
+
+proc sql;
+select age,min(height) as minheight
+from sashelp.class
+where sex="M";
+quit;
+
+
+***********using Max
+
+proc sql;
+select age,max(height) as minheight
+from sashelp.class
+where sex="M";
+quit;
+
+***********using nmiss(0 notmiss,1 miss)
+
+proc sql;
+select age,nmiss(height) as minheight
+from sashelp.class
+where sex="M";
+quit;
+
+***********using range
+
+proc sql;
+select age,range(height) as minheight
+from sashelp.class
+where sex="M";
+quit;
+
+***********using std
+measure of how varied is the data in a data set
+
+proc sql;
+select age,std(height) as minheight
+from sashelp.class
+where sex="M";
+quit;
+
+***********using mean
+
+It is also called Average.
+
+proc sql;
+select age,mean(height) as minheight
+from sashelp.class
+where sex="M";
+quit;
+
+***********using Extra
+
+proc sql;
+select *,(weight*0.45) as wtkg from sashelp.class;
+quit;
+
+***********using Label
+proc sql;
+select name label="Student_name",age fromat=dollar4.,sex label="gender" from sashelp.class;
+quit;
+
+{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{------------- Tables (SQL) -------------}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+
+
+
+proc sql;
+create table test (name char,age num,gender char);
+insert into test
+values("Muthu",20,"M")
+values("God",30,"F")
+values("PUshups",30,"G")
+;
+quit;
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{--------Tables SQL Part2--------}}}}}}}}}}}}}}}}}}}}}}
+
+proc sql;
+create table money(name char,age num,gender char);
+insert into money
+set name="ravi",age=30,gender="M"
+set name="swamy",age=40,gender="F"
+set name="nadar",age=25,gender="M"
+;
+quit;
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{--------Tables SQL Part3--------}}}}}}}}}}}}}}}}}}}}}}
+
+proc sql;
+create table class as select * from sashelp.class;
+quit;
+
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{--------Tables SQL(missing) --------}}}}}}}}}}}}}}}}}}}}}}
+
+proc sql;
+create table swamy (name char,age num,gender char);
+insert into swamy
+values("swamy",.," ")
+values(" ",40,"F")
+values("Balan",.,"M");
+quit;
+
+proc sql;
+select * from swamy where name is missing and age is missing;
+quit;
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{--------Tables SQL(M% start with M) --------}}}}}}}}}}}}}}}}}}}}}}
+
+proc sql;
+select * from sashelp.class where name like "J%";
+Quit;
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{--------Tables SQL(multiples statements) --------}}}}}}}}}}}}}}}}}}}}}}
+
+proc sql;
+select *, case
+when age between 0 and 12 then "Young"
+when age between 13 and 14 then "Middle"
+when age between 15 and 16 then "old"
+end as age_group
+from sashelp.class;
+quit;
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{--------Tables SQL(JOins) --------}}}}}}}}}}}}}}}}}}}}}}
+
+/* SET Operators(Combine Multiple Queries) */
+/* Union Union All Intersect and Except */
+/* (Union ALL,Union,Intersect,Except) */
+
+
+data plans_2008;
+input Plancode$ year Plan$ Customer;
+cards;
+P101 2008 1min 340
+P102 2008 3min 350
+P207 2009 4min 450
+P240 2008 2min 560
+P432 2008 3min 402
+;
+run;
+
+data plans_2009;
+input Plancode$ year Plan $ Customer;
+cards;
+P102 2009 1sec 540
+P103 2009 2sec 500
+P104 2009 3sec 288
+P102 2009 4sec 302
+P103 2009 5sex 892
+;
+run;
+
+proc sql;
+select * from plans_2008
+union all
+select * from plans_2009
+;
+quit;
+
+proc sql;
+select * from plans_2008
+union 
+select * from plans_2009
+;
+quit;
+union union all intersect
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{--------Do loop() --------}}}}}}}}}}}}}}}}}}}}}}
+
+*********** 1] Normal loop
+
+data tommy;
+money=5000;
+output;
+do x=1to 8;
+money=money-100;
+output;
+end;
+run;
+
+*********** 2] Do Untill (works untill it become true)
+
+data zombies;
+loan=10000;
+numbers=0;
+output;
+do until (loan=0);
+loan=loan-1000;
+numbers=numbers+1;
+output;
+end;
+run;
+
+*********** 3] Do while
+
+data muthus;
+loan=30000;
+numberofpymt=0;
+output;
+do while(loan>0);
+loan=loan-1000;
+output;
+end;
+run;
+
+*********** 4] Do by
+
+data balances;
+balances=5000;
+do i=1 to 8 by 2;
+output;
+end;
+run;
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{--------Do loop() --------}}}}}}}}}}}}}}}}}}}}}}
+
+data slatt;
+input col1-col4;
+cards;
+10 20 30 40
+30 40 50 49
+93 09 28 17
+;
+run;
+
+proc print data=slatt;
+run;
+
+data tommy;
+set slatt;
+array test(4) col1 col2 col3 col4;
+do i=1 to 4;
+test(i)=test(i)+4;
+end;
+drop i;
+run;
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{--------Macros --------}}}}}}}}}}}}}}}}}}}}}}
+
+-------------------1 simple macro
+
+%let z=13;
+%let sex=M;
+
+title "Report created by system";
+data sample;
+set sashelp.class;
+where age=&z and sex="&sex";
+run;
+
+-------------------2 simple macro
+
+%let ah=12;
+%let ha=89;
+
+proc print data=sashelp.class;
+where age>=&ah and weight<=&ha;
+run;
+
+-------------------3 simple macro
+
+
+
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{--------Tables Character function--------}}}}}}}}}}}}}}}}}}}}}}
+
+-------------------1 Scan (it select the 4th word)
+
+data exp10;
+A="My Name is Swamy ";
+B=Scan(A,4);
+run;
+
+-------------------2 tranwrd (2 types show to change ,3 type is replace with word)
+
+data exp10;
+A="My Name is Swamy ";
+B=tranwrd(A,"Swam","Muthu");
+run;
+
+-------------------3 translate (it will replace M with L)
+
+data exp10;
+A="My Name is Swamy ";
+B=translate(A,"L","M");
+run;
+
+-------------------4 find (it will locate the number)
+
+data exp10;
+A="My Name is Swamy ";
+B=Find(A,"Swamy");
+run;
+
+------------------- 5 Upcase
+
+data exp10;
+A="My Name is Swamy ";
+B=upcase(A);
+run;
+
+------------------- 6 lowcase
+
+data exp10;
+A="My Name is Swamy ";
+B=lowcase(A);
+run;
+
+------------------- 7 propcase (firstleetter is huge)
+
+data exp19;
+A="My Name is zombie ";
+C=propcase(A);
+run;
+
+------------------- 8 subsr(start pos,end pos)
+
+data zomb;
+A="123$%";
+B=substr(A," ",ka); (Keep alphabets)
+C=substr(A," ",kp); (keep special)
+D=substr(A," ",kd); (keep digits$)
+run;
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{--------SQL JOINS --------}}}}}}}}}}}}}}}}}}}}}}
+
+---EXP 1
+data moo1;
+input Name$ age;
+cards;
+Swamy 30
+Manish 40
+Zombie 30
+Raksha 20
+;
+run;
+
+data moo2;
+input Name$ age;
+cards;
+Tommy 40
+Manish 20
+Raksha 20
+Zombie 30
+;
+run;
+
+proc print data=moo1;run;
+proc print data=moo2;run;
+
+proc sql;
+create table swasmy as
+select *
+from moo1 as X inner join moo2 as Y
+on X.Name=Y.Name;
+quit;
+
+--EXP2
+
+data my1;
+input A B;
+cards;
+20 12
+32 72
+12 23
+40 20
+;
+run;
+
+data my2;
+input A B1;
+cards;
+15 29
+32 40
+15 92
+20 20
+;
+run;
+
+proc print data=my1;run;
+proc print data=my2;run;
+
+proc sql;
+create table swamy as
+select *
+from my1 as X full join  my2 as Y
+on X.A=Y.A;
+quit;
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{-------- in-obs --------}}}}}}}}}}}}}}}}}}}}}}
+
+proc sql inobs=10 number;
+select * from sashelp.class;
+quit;
+
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{-------- Merge --------}}}}}}}}}}}}}}}}}}}}}}
+data A;
+input ID Name$ height;
+cards;
+10 Swamy 20
+25 Bhagg 30
+21 Jagg 28
+30 Lagg 39
+;
+run;
+
+data B;
+input ID name$ weight;
+cards;
+20 Zombe 20
+10 Tomm 30
+21 Swamy 20
+32 Lorry 20
+;
+run;
+
+proc sort data=A;by id;run;
+proc sort data=B;by id;run;
+
+data innerdata;
+merge A(IN=X) B(In=Y);
+by id;
+if X and Y;
+run;
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{-------- conditional statement --------}}}}}}}}}}}}}}}}}}}}}}
+
+-- 1} if ..then
+
+data exp10;
+set sashelp.class;
+if sex="M" then sex_new="male";
+else sex_new="female";
+run;
+
+-- 2} if ..
+
+data swamy;
+set sashelp.class;
+if age = 13;
+run;
+
+--3} if.....else
+
+data zombie;
+set sashelp.class;
+if sex="M" then sex_new="Male";
+else sex_new="Female";
+run;
+
+--4} where
+data exp5;
+set sashelp.class;
+where weight>80;
+run;
+
+--5}  if...then do
+data ext92;
+set sashelp.class;
+if sex="M" then do;
+favactor="swamy";
+end;
+if sex="F" then do;
+favactor="akaswamy";
+end;
+run;
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{--------EXPORT --------}}}}}}}}}}}}}}}}}}}}}}
+
+proc export data= sashelp.class
+outfile="/home/u61526503/sasuser.v94/imazz.csv"
+dbms=csv replace;
+run;
+
+proc import out=money
+ datafile="/home/u61526503/sasuser.v94/imazz.csv"
+dbms=csv replace;
+run;
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{--------proc_steps --------}}}}}}}}}}}}}}}}}}}}}}
+
+proc sort data=money;
+by age;
+run;
+  
+proc sort data=sashelp.class out=mmn1;
+by descending age;
+run;
+
+proc means data=sashelp.class maxdec=0;
+var age;
+run;
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{-------- Format --------}}}}}}}}}}}}}}}}}}}}}}
+
+proc format;
+value age_f
+	10-12="Group A"
+	12-15="Group B" ;
+
+value $sex
+	M="Male"
+	F="Female"
+	
+;
+run;
+
+data tom;
+set sashelp.class;
+Agegroup=age;
+sexgroup=sex;
+format Agegroup age_f. sexgroup sex.;
+run;
+
+
+
+proc contents data=sashelp.class;
+run;
+
+/*  PROC SQL */
+
+/* CLAUSES IN PROC SQL */
+
+
+/* select=selecting the column */
+/* from=define source data */
+/* where=row level conditions */
+/* order by=define the order */
+/* group by=define grouping column */
+/* having=filter the data which output by group by cluse */
+/* feedback=display column information of data set */ ;
+
+/* Creatimg a copy of dataset in proc sql */
+
+proc sql ;
+select * 
+from sashelp.class ;
+quit ;
+
+
+proc sql ;
+select name, age
+from sashelp.class ;
+quit ;
+
+data ab;
+set sashelp.class;
+run;
+
+/* Using order by clause */
+
+proc sql ;
+select name, age, height, weight
+from sashelp.class 
+order by age ;
+quit ;
+
+
+/* descending order */
+
+proc sql ;
+select name, age, height, weight
+from sashelp.class 
+order by age desc;
+quit ;
+
+/* Creating new variable in proc sql */
+proc sql;
+select *,
+case 
+when sex="M" then "male"
+else "Female"
+end as sex1
+from sashelp.class;
+quit;
+
+
+proc sql ;
+select age, height, weight, (weight*2) as new_weight 
+from sashelp.class ;
+quit ;
+
+
+proc sql  ;
+select  name ,age , age + 10 as ageplus10
+from sashelp.class ;
+quit ;
+
+data av ;
+set sashelp.class;
+ageplus10= age + 10 ;
+run ;
+
+/* Using Where Clause */
+
+proc sql ;
+select * 
+from sashelp.class 
+where sex="F";
+quit ;
+
+proc sql ;
+select * 
+from sashelp.class 
+where sex="F" and age>14;
+quit ;
+
+proc sql ;
+select * 
+from sashelp.class 
+where age between 12 and 14;
+quit ;
+
+proc sql ;
+select * 
+from sashelp.class 
+where name like "__b%";
+quit ;
+
+
+
+
+/* list of Summary functions in proc sql  */
+
+MIN -  smallest value
+MAX -  largest value
+NMISS - number of missing values
+mean  - average of values
+count - number of non missing values
+sum  - sum of values
+STD  - standard deviation
+RANGE - range of values ;
+
+
+/* Using Summary functions */
+
+
+
+/* sum */
+
+proc sql ;
+select count(make) as total , sum(invoice) , make
+from sashelp.cars 
+group by make ;
+quit ;
+
+
+proc sql ;
+select age, sum(height) as totalheight, sum(weight) as totalweight
+from sashelp.class 
+group by age ;
+quit ;
+
+/* min */
+
+proc sql ;
+select age, min(height) as minheight, min(weight) as minweight
+from sashelp.class 
+group by age ;
+quit ;
+
+
+/* max */
+
+proc sql ;
+select age, max(height) as totalheight, max(weight) as totalweight
+from sashelp.class 
+group by age ;
+quit ;
+
+
+/* nmiss */
+
+proc sql ;
+select age, nmiss(height) as totalheight, nmiss(weight) as totalweight
+from sashelp.class 
+group by age ;
+quit ;
+
+
+/* count */
+
+proc sql ;
+select age, count(height) as totalheight, count(weight) as totalweight
+from sashelp.class 
+group by age ;
+quit ;
+
+
+/* standard deviation */
+
+proc sql ;
+select age, std(height) as totalheight, std(weight) as totalweight
+from sashelp.class 
+group by age ;
+quit ;
+
+
+
+/* range */
+
+proc sql ;
+select age, range(height) as totalheight, range(weight) as totalweight
+from sashelp.class 
+group by age ;
+quit ;
+
+proc print data=sashelp.class;
+run;
+
+/* mean */
+
+proc sql ;
+select age, mean(height) as totalheight, mean(weight) as totalweight
+from sashelp.class 
+group by age ;
+quit ;
+
+
+
+
+/* Creating tables in proc sql */
+
+proc sql ;
+create table class  
+(name char(15) , age num (2) , weight num (4) ) ;
+insert into class 
+values("John", 20, 80)
+values("alex", 23, 100)
+values("carter", 25, 150)
+;
+quit ;
+
+/* Printing the result generated */
+
+proc print data=class ;
+run ;
+
+proc sql  ;
+select * 
+from class ;
+quit ;
+
+/* Selecting distinct values */
+
+proc sql ;
+select distinct age
+from sashelp.class ;
+quit ;
+
+/* Storing in a new dataset */
+
+proc sql ;
+create table class1 as 
+select distinct age
+from sashelp.class ;
+quit ;
+
+/* Printing observation number Using NUMBER Option */
+
+proc sql number  ;
+select * 
+from sashelp.class ;
+quit ;
+
+
+/* calculating sum of weight, of all the students whom age is 14  */
+
+proc sql ;
+select sum(weight) as newweight , age
+from sashelp.class 
+group by age
+having age=14 ;
+quit ;
+
+
+
+
+
+/* Types of Horizontal joins in proc sql */
+
+1. inner join
+
+2. outer join -
+
+a. left join
+b. right join
+c. full join
+
+/* Inner join */
+
+
+
+data exp1;
+input A B;
+cards;
+11 12
+13 11
+17 19
+18 29
+;
+run;
+
+
+data exp2;
+input A B1;
+cards;
+14 11
+13 12
+17 19
+12 29
+;
+run;
+
+--------------------------------------------------
+Types of Do Loops
+1> Iterative do loops
+2> Conditional do Loop {Do Untill & Do While}
+
+Array is a way to make group of variables and process in groups.
+Syntax {array (name) (elements)
+
+MACROS
+Three types of Macro
+1) %let and %put
+2) %macro and %mend
+3) Call symput
+
+
+data money;
+input col1-col4;
+cards;
+10 20 30 40
+21 22 32 34
+23 53 23 82
+92 83 72 28
+;
+run;
+
+data sample2;
+set money;
+array test(4) col1 col2 col3 col4;
+do i=1to4;
+test(i)=test(i)+4;
+end;
+drop i;
+run;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

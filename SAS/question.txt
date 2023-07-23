@@ -1,0 +1,55 @@
+Each Question consist of 5 marks
+******************************** SAS ***********************************
+
+
+1) Write any 5 Character function ? With Example 
+
+2) Write any 5 statements in SAS ? With Example
+
+3) How to export and import in SAS ? with Example
+
+4) Create 2 Datasets & Combine them ,Then sort the combine data
+
+5) Create a library name 'Mayur' and Save dummy data in library ?
+
+6) Write any 6 proc steps with Example ?
+
+7) In the data  sashelp.class,Remove the "name", "height","weight", column & store 
+	the data in any Library ?
+
+8) write any 5 numeric function and concatenation function, with example
+
+9) Merge any two data sets ? use all 4 merge
+
+10) Tell me about yourself ?
+		OR
+     Transpose the data using proc transpose (horizontal / Vertical)	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

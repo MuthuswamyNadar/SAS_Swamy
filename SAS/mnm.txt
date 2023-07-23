@@ -1,0 +1,326 @@
+**************General Question’s
+1]tell me about yourself
+
+Remember : If we cover properly then we are all in with Technical and 
+Situation based question’s
+
+1] Good morning/Afternoon/Evening
+Morning(12am-12pm)
+Afternoon(12pm-3.30pm)
+Evening(3.30pm-12pm) 
+
+2] Thank you for giving me these opportunity to introduce myself
+
+3] Academics/college/other education’s
+
+4] Certification/Projects/Internships/Ex-position of job
+
+5] future Goals towards the company/skills
+
+6] Your Hobby/Daily rituals(workout-morning)
+
+7] Thank you !
+
+Example: 
+Good morning/Afternoon/Evening. First of all thank you for giving me this opportunity to introduce myself.
+ My name is <name>.I am from Maharashtra leaves in Mumbai. I did my BSC-IT in 2020 and also acquire certification of Data Analytics 
+from Udemy and Coursera.
+My short term view is to get a Job to Start my Journey and Long term goal is to Senior Position as SAS Programmer. 
+My daily hobbies are reading books and Exercise daily .That’s all about me 
+Thank you !
+
+
+
+************************************************************************************Technical Questions *****************************************************************************
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^] How many types of Function is there in SAS
+There are Three types of Function 
+CHARACTER FUNCTION
+NUMERIC FUNCTION
+DATEFUNCTION
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^] How to merge two table in SAS ?{using SAS Datasteps)
+	*both table should be sorted by the common variable
+	*For merging using same variable fro both Data sets
+	Examples :
+
+
+ 
+Data A;
+Input ID Name$ Height;
+cards;
+1 A 1
+3 B 2
+5 C 2
+7 D 2
+9 E 2
+;
+run;
+Data B;
+Input ID Name$ Weight;
+cards;
+2 A 2
+4 B 3
+5 C 4
+7 D 5
+;
+run;
+*sort the table
+
+proc sort data = a;
+by id;
+run;
+
+proc sort data = b;
+by id;
+run;
+
+(Inner Join)
+data dummy;      
+merge a (in=x) b(in=y);
+by id;
+If X and Y;
+run;
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^] How to combines tables vertically with proc SQL
+
+(Union,Union all is used in Proc SQL)
+/ if a dataset A contains 10 records and dataset B contains 10 records. I want combined dataset would contain 20 records.
+(https://www.listendata.com/2015/10/combining-tables-vertically-with-proc.html)
+data dat1;
+input x y;
+cards;
+1 6
+1 6
+1 7
+6 4
+7 6
+8 7
+;
+run;
+data dat2;
+input x z;
+cards;
+1   5
+4   2
+3   4
+6   4
+6   5
+5   8
+;
+run;
+*Union Operator
+It show all row of both tables ,allows duplicate rows 
+
+
+
+proc sql;
+create table out7 as
+select *
+from dat1
+UNION
+select *
+from dat2;
+quit; 
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^] Which step is used to convert horizontal table to vertical 
+
+https://www.listendata.com/2015/08/sas-proc-transpose-explained.html 
+
+proc transpose is used to convert horizon-to vertical
+
+data transp;
+input Name $ Subject $ Marks;
+cards;
+Samma Maths 96
+Sandy English 76
+Devesh German 76
+Rakesh Maths 50
+Priya English 62
+Kranti Maths 92
+William German 87
+;
+run;
+
+Default 
+
+proc transpose data = transp out= outdata;
+run;
+
+proc transpose data = transp out= outdata (drop=_name_);
+by Name;
+id Subject;
+var Marks;
+run;
+
+ID -[Convert variable to column name]
+var [into rows]
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^]how to create macro variable
+
+%let x = 10;
+
+Display in output
+%PUT &x.;
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^] How to compare two table with proc sql.
+
+proc sql;
+select * from A
+except
+select * from B ;
+quit;
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ] How to create new variable in SQL
+
+proc sql;
+select name as myname,age as yourage,(age*2) as doubleage 
+from sashelp.class;
+run;
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ] If you have table with 20 rows and you want to display 5 of the data then what will you do ? 
+
+proc sql outobs=10;
+select * from sashelp.class;
+quit;
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ] Tell me the syntax of creating table in SQL ?
+
+
+proc sql;
+create table test (name char,age num,gender char);
+insert into test
+values("Muthu",20,"M")
+values("Swamy",30,"F")
+values("PUshups",30,"G")
+;
+quit;
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ] How to merge Data in SAS using Data steps?
+
+data A;
+input ID Name$ height;
+cards;
+10 Swamy 20
+25 Bhagg 30
+21 Jagg 28
+30 Lagg 39
+;
+run;
+
+data B;
+input ID name$ weight;
+cards;
+20 Zombe 20
+10 Tomm 30
+21 Swamy 20
+32 Lorry 20
+;
+run;
+
+proc sort data=A;by id;run;
+proc sort data=B;by id;run;
+
+data innerdata;
+merge A(IN=X) B(In=Y);
+by id;
+if X and Y;
+run;
+
+if left join then (if X) and right join (if Y)
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ]How to export data in SAS (which statement is used to export data in SAS)
+
+proc export data= sashelp.class
+outfile="/home/u61526503/sasuser.v94/imazz.csv"
+dbms=csv replace;
+run;
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ] how to sort table / which keyword is used to sort oppossite(descending)/ tell me the syntax of proc sort
+
+proc sort data=money;
+by age;
+run;
+  
+proc sort data=sashelp.class out=mmn1;
+by descending age;
+run;
+ 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^] How to use format / share me the syntax /
+
+proc format;
+value age_f
+	10-12="Group A"
+	12-15="Group B" ;
+
+value $sex
+	M="Male"
+	F="Female"
+	
+;
+run;
+
+data tom;
+set sashelp.class;
+Agegroup=age;
+sexgroup=sex;
+format Agegroup age_f. sexgroup sex.;
+run;
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ] How to sort table using proc sql
+
+proc sql;
+select *
+from sashelp.class
+order by age;
+run;
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^] Tell me the diffrence between Nodupkey dupkey
+with synatx
+
+proc sql;
+create table swamy as
+select * from sashelp.class;
+quit;
+
+proc sort data=swamy Nodupkey;
+by age;
+run;
+NODUPKEY option removes duplicate observations where value of a variable listed in BY statement 
+ while NODUP option removes duplicate observations where values in all the variables are repeated
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^] tell me about the proc means and with syntax/ tell me the output of means
+
+Proc meeans only used in numerical and whlie means is Average of given numbers
+
+output data is 
+Variable Label N(numbers in tables) mean Min Max
+
+https://www.listendata.com/2015/01/sas-detailed-explanation-of-proc-means.html
+
+* whenever we explain the Syntax mention it very simply and clean 
+* Make sure the base is strong and advance also
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ] what are the 4 phases of clinical trials ?
+
+Step 1: Discovery and Development.
+Step 2: Preclinical Research.
+Step 3: Clinical Research.
+Step 4: FDA Drug Review.
+Step 5: FDA Post-Market Drug Safety Monitoring.
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ] what is protocol in clinical trials ?
+
+The protocol is a document that describes how a clinical trial will be conducted (the objective(s), design, methodology, s
+tatistical considerations 
+and organization of a clinical trial,) and ensures the safety of the trial subjects and integrity of the data collected.
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ ] Difference between Input and put function
+Input function Character to numeric conversion 
+put function Numeric to character conversion 
+
+

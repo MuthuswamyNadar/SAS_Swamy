@@ -1,0 +1,407 @@
+
+---------------------------------------------- Advance SAS ----------------------------------------------
+
+*********** [SQL] ***********
+
+'''''''''''''''''''''''''' Creating Table in SQL ''''''''''''''''''''''''''
+
+proc sql;
+create table Manish (name char,age num);
+insert into swamy
+values ("Moneyz",20)
+values("Akshayz",20)
+;
+quit;
+
+'''''''''''''''''''''''''' Creating Table in SQL 2 ''''''''''''''''''''''''''
+
+proc sql;
+create table class as select * from sashelp.class;
+quit;
+
+
+'''''''''''''''''''''''''' Adding New Variable ''''''''''''''''''''''''''
+
+proc sql;
+select (age*2)as myage from sashelp.class;
+quit;
+
+
+proc sql;
+select name as myanmex from sashelp.class;
+quit;
+
+
+proc sql;
+select sum(age) as swamyz,age,height from sashelp.class;
+quit;
+
+
+{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{------------- Proc (SQL) -------------}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+
+---------1} Select all proc sql-----
+
+
+proc sql;
+select *
+from welcome;
+run;
+
+---------2} Select particular sql-----
+
+
+proc sql;
+select name,age,weight from sashelp.class;
+run;
+
+---------3} order by -----
+
+
+proc sql;
+select *
+from sashelp.class
+order by age;
+run;
+
+
+---------4} New Variable -----
+
+
+proc sql;
+select name as myname,age as yourage,(age*2) as doubleage 
+from sashelp.class;
+run;
+
+
+---------5} Where SQL -----
+
+
+proc sql;
+select *
+from sashelp.class
+where sex="M";
+run;
+
+---------5} Out obs -----
+
+
+proc sql outobs=10;
+select * from sashelp.class;
+quit;
+
+-------6} No DUP keys
+
+
+proc sql;
+create table swamy as
+select * from sashelp.class;
+quit;
+
+proc sort data=swamy Nodupkey;
+by age;
+run;
+
+***********using and
+
+
+proc sql;
+select *
+from sashelp.class
+where sex="M" and age <=13;
+run;
+
+***********using or
+
+
+proc sql;
+select *
+from sashelp.class
+where sex="F" or age<= 12;
+quit;
+
+***********using between
+
+
+proc sql;
+select *
+from sashelp.class
+where age between 11 and 13;
+quit;
+
+
+---------5} Matahmatecial -----
+
+
+***********using Sum
+
+
+proc sql;
+select sum(age) as myage,age
+from sashelp.class
+group by age;
+run;
+
+***********using count
+
+
+proc sql;
+select count(height) as mineheight,height
+from sashelp.class
+order by age;
+quit;
+
+***********using Min
+
+
+proc sql;
+select age,min(height) as minheight
+from sashelp.class
+where sex="M";
+quit;
+
+
+***********using Max
+
+
+proc sql;
+select age,max(height) as minheight
+from sashelp.class
+where sex="M";
+quit;
+
+
+***********using nmiss(0 notmiss,1 miss)
+
+
+proc sql;
+select age,nmiss(height) as minheight
+from sashelp.class
+where sex="M";
+quit;
+
+***********using range
+
+
+proc sql;
+select age,range(height) as minheight
+from sashelp.class
+where sex="M";
+quit;
+
+***********using std
+
+
+measure of how varied is the data in a data set
+
+proc sql;
+select age,std(height) as minheight
+from sashelp.class
+where sex="M";
+quit;
+
+***********using mean
+
+
+It is also called Average.
+
+proc sql;
+select age,mean(height) as minheight
+from sashelp.class
+where sex="M";
+quit;
+
+***********using Extra
+
+proc sql;
+select *,(weight*0.45) as wtkg from sashelp.class;
+quit;
+
+***********using Label
+
+
+proc sql;
+select name label="Student_name",age fromat=dollar4.,sex label="gender" from sashelp.class;
+quit;
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{--------Do loop() --------}}}}}}}}}}}}}}}}}}}}}}
+
+data slatt;
+input col1-col4;
+cards;
+10 20 30 40
+30 40 50 49
+93 09 28 17
+;
+run;
+
+proc print data=slatt;
+run;
+
+data tommy;
+set slatt;
+array test(4) col1 col2 col3 col4;
+do i=1 to 4;
+test(i)=test(i)+4;
+end;
+drop i;
+run;
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{--------SQL JOINS --------}}}}}}}}}}}}}}}}}}}}}}
+
+---EXP 1
+data moo1;
+input Name$ age;
+cards;
+Swamy 30
+Manish 40
+Zombie 30
+Raksha 20
+;
+run;
+
+data moo2;
+input Name$ age;
+cards;
+Tommy 40
+Manish 20
+Raksha 20
+Zombie 30
+;
+run;
+
+proc print data=moo1;run;
+proc print data=moo2;run;
+
+proc sql;
+create table swasmy as
+select *
+from moo1 as X inner join moo2 as Y
+on X.Name=Y.Name;
+quit;
+
+--EXP2
+
+data my1;
+input A B;
+cards;
+20 12
+32 72
+12 23
+40 20
+;
+run;
+
+data my2;
+input A B1;
+cards;
+15 29
+32 40
+15 92
+20 20
+;
+run;
+
+proc print data=my1;run;
+proc print data=my2;run;
+
+proc sql;
+create table swamy as
+select *
+from my1 as X full join  my2 as Y
+on X.A=Y.A;
+quit;
+
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{-------- Merge --------}}}}}}}}}}}}}}}}}}}}}}
+data A;
+input ID Name$ height;
+cards;
+10 Swamy 20
+25 Bhagg 30
+21 Jagg 28
+30 Lagg 39
+;
+run;
+
+data B;
+input ID name$ weight;
+cards;
+20 Zombe 20
+10 Tomm 30
+21 Swamy 20
+32 Lorry 20
+;
+run;
+
+proc sort data=A;by id;run;
+proc sort data=B;by id;run;
+
+data innerdata;
+merge A(IN=X) B(In=Y);
+by id;
+if X and Y;
+run;
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{-------- Chart --------}}}}}}}}}}}}}}}}}}}}}}
+
+/* Chart means graphical representation of Data */
+/* Bar chart */
+/* (verticalbar,Horizontalbar) */
+/* g chart */
+proc chart data=sashelp.class;
+vbar age;
+run;
+
+proc chart data=sashelp.class;
+hbar age;
+run;
+
+proc chart data=sashelp.class;
+hbar age/discrete type=percent;
+run;
+
+proc gchart data=sashelp.class;
+hbar age;
+run;
+
+proc gchart data=sashelp.class;
+pie age ;
+run;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

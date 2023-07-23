@@ -1,0 +1,846 @@
+1]tell me about yourself
+Remember : If we cover properly then we are all in with Technical and Situation based
+ question’s
+
+1] Good morning/Afternoon/Evening
+Morning(12am-12pm)
+Afternoon(12pm-3.30pm)
+Evening(3.30pm-12pm) 
+
+2] Thank you for giving me these opportunity to introduce myself
+
+3] Academics/college/other education’s
+
+4] Certification/Projects/Internships/Ex-position of job
+
+5] future Goals towards the company/skills
+
+6] Your Hobby/Daily rituals(workout-morning)
+
+7] Thank you !
+
+Example:
+Good morning/Afternoon/Evening. First of all thank you for giving me this opportunity to introduce myself.
+My name is <name>.I am from Maharashtra leaves in Mumbai. I did my BSC-IT in 2020 and also acquire certification of Data Analytics from Udemy and Coursera.
+My short term view is to get a Job to Start my Journey and Long term goal is to Senior Position as SAS Programmer. 
+My daily hobbies are reading books and Exercise daily .That’s all about me 
+Thank you !
+----------------------------------------------------------------------------------------
+
+Comments:
+
+We can insert comment lines in our SAS programs
+There are two ways to do this
+
+(1) start with * put text and then end with;
+(2) Start and end with /* and put text in middle... short cut to do this is ctrl+/
+
+SAS Data values/ Variable values/ Data types:
+
+Two data types are there,
+(1) Character -Character values default length is 8 bytes and can be
+increased up to 32,767 bytes by using LENGTH statement
+1byte = 1 character.
+contains any value like letters, numbers, special characters and blanks.
+$ followed by variable name indicates it as a character variable
+
+(2) Numeric – Get stores as normal numeric value till 12 digits and after that get stored in
+electronic format. Contains only numbers
+Standard numeric data values
+Recall that standard numeric data values can contain only:
+• Numbers
+• decimal points
+• numbers using scientific (E) notation
+• negative (minus) and positive (plus) signs
+Examples of standard numeric values include:
+26, 3.9, -13, +3.14, 314E-2, and 2.193E3.
+
+
+
+
+
+*************************  BASE SAS   **************************
+SAS Full form- Statistical analysis system
+
+developed for Agricultural Research Purposes, developed in between 1960’s and 1970’s
+
+SAS = Data warehousing Tool + Statistical Package
+
+
+The main function of Statistical Package is Data Analysis
+So, SAS can do all Data management, Data cleaning, Data manipulation, Data Analysis and
+IN BANKING,CLINICAL,INSURANCE
+
+(^) SAS Data Types
+Two data types 
+---(1) Character 
+       Character values default length is 8 bytes
+       can be increased using Length Statement
+       $ indicates character variables
+---(2) Numeric
+	contain only numbers
+		
+
+(^) SAS Program steps:
+
+***Data step [Create Data/Modifying Data]
+***Proc step [Data Analysis/ Reporting]
+
+(^) SAS Dataset :
+
+Data is stored in tables which are called SAS datasets
+
+Rows---observation
+columns----variables
+
+(^) SAS Library :
+
+SAS Data files stored in SAS Library
+
+^^Rules For creating SAS library names^^
+
+Must be 8 characters or less
+Must begin with a letter or underscore
+Must contain only letters, numbers or underscores, no special characters including blank
+spaces
+
+Two types of SAS Library
+--(1) Permanent library
+ SASUSER and SASHELP are permanent libraries of SAS
+ we create a program in SAS and save it in these permanent
+libraries then these will be available as long as we want them	
+
+--(2) Temporary library (work)
+ end the session after that again you start the software then
+ this program will not be in the work library
+
+--(3) Creating the libraries
+LIBNAME libref 'File path name here';
+
+____________________________________________________________________________________
+
+
+(1) Creating the dataset in SAS
+
+data plans_2009;
+input Plancode$ year Plan $ Customer;
+cards;
+P102 2009 1sec 540
+P103 2009 2sec 500
+P104 2009 3sec 288
+P102 2009 4sec 302
+P103 2009 5sec 892
+;
+run;
+
+(2) Character Function
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{-------- Character function--------}}}}}}}}}}}}}}}}}}}}}}
+
+-------------------1 Scan (it select the 4th word)
+
+data exp10;
+A="My Name is Swamy ";
+B=Scan(A,4);
+run;
+
+-------------------2 tranwrd (2 types show to change ,3 type is replace with word)
+
+data exp10;
+A="My Name is Swamy ";
+B=tranwrd(A,"Swam","Muthu");
+run;
+
+-------------------3 translate (it will replace M with L)
+
+data exp10;
+A="My Name is Swamy ";
+B=translate(A,"L","M");
+run;
+
+-------------------4 find (it will locate the number)
+
+data exp10;
+A="My Name is Swamy ";
+B=Find(A,"Swamy");
+run;
+
+------------------- 5 Upcase
+
+data exp10;
+A="My Name is Swamy ";
+B=upcase(A);
+run;
+
+------------------- 6 lowcase
+
+data exp10;
+A="My Name is Swamy ";
+B=lowcase(A);
+run;
+
+------------------- 7 propcase (firstleetter is huge)
+
+data exp19;
+A="My Name is zombie ";
+C=propcase(A);
+run;
+
+------------------- 8 compress(start pos,end pos)
+
+data zomb;
+A="123$% SWamy ";
+B=compress(A," ","ka"); (Keep alphabets)
+C=compress(A," ","kp"); (keep special)
+D=compress(A," ","kd"); (keep digits$)
+run;
+
+*************************************---Numeric Function---***********************************************
+**************** Minimum,Maximum,Range,Sum
+data numeric;
+input m1 m2;
+cards;
+10 20
+30 40
+10 20 
+20 40 
+50 80
+;
+run;
+
+data temp;
+set numeric;
+sumz=sum(m1,m2); (total of Numberz)
+maxz=max(m1,m2); (Maximum in table)
+minz=min(m1,m2); (minimum in table)
+range=range(m1,m2); (range is Maximum - Minimum)
+run;
+
+************** int ceil floor round
+
+data hello;
+input m1;
+cards;
+10.2
+130.6
+140.4
+320.9
+;
+run;
+
+data exmp;
+set hello;
+myint=int(m1);(turn's into Integer)
+floorz=floor(m1);(always take one step back,if 14.9 the output is 14)
+ceiling=ceil(m1);(always take one step forward,if 14.3 the output is 15)
+roundz=round(m1);(always 0.5 ,if 14.3 then 14,(if 14.9 then 15)
+run;
+   -------------------------Any Digit
+data example;
+A="I have BMW 123456786";
+B=anydigit(A);
+run;
+(find the position of number eg.12)
+****************** cats and catx
+data concad;
+A="My ";
+B="swamy";
+C="Mom";
+Ca=cats(A,B,C); (it concatenate the string)
+Da=catx("+",A,B,C); (its add some gap/dlm)
+run;
+
+****************************--Date Function--***********************
+
+**********Datepart and Timepart
+
+data example;
+datetime="29Dec2020:10:20:30"dt;
+datepartz=datepart(datetime); (Only take the date from the variable)
+timepartz=timepart(datetime); (only take the Time from the variable)
+format datepartz date9. timepartz time. datetime datetime.; (format is use to convert nonstandard data to standard data)
+run;
+
+**********Intck and Intnx
+100
+data help;
+date1="20Dec2017"d;
+date2="21Jan2020"d;
+format date1 date2 dayz date9.;
+Yeardiff=intck("year",date1,date2);
+Daydiff=intck("days",date1,date2);
+monthdiff=intck("weeks",date1,date2);
+dayz=intnx("day",date1,10); (intnx is used to add the date)
+run;
+
+/* While intck is used to find the difference between two date */
+/* Month Year Day Week */
+
+******************************Creating the Library
+libname swamy "/home/u61526503/moo2";
+
+data swamy.class;
+set sashelp.class;
+run;
+
+*******************(conditional Statement)*****************
+
+-- 1} if ..then
+
+data exp10;
+set sashelp.class;
+if sex="M" then sex_new="male";
+else sex_new="female";
+run;
+
+-- 2} if ..
+
+data swamy;
+set sashelp.class;
+if age = 13;
+run;
+
+--3} if.....else
+
+data zombie;
+set sashelp.class;
+if sex="M" then sex_new="Male";
+else sex_new="Female";
+run;
+
+--4} where
+data exp5;
+set sashelp.class;
+where weight>80;
+run;
+
+--5}  if...then do
+data ext92;
+set sashelp.class;
+if sex="M" then do;
+favactor="swamy";
+end;
+if sex="F" then do;
+favactor="akaswamy";
+end;
+run;
+
+---------{{{{{{{{{{{{{{{{{{{{{{{{{{{--------EXPORT --------}}}}}}}}}}}}}}}}}}}}}}
+
+proc export data= sashelp.class
+outfile="/home/u61526503/sasuser.v94/imazz.csv"
+dbms=csv replace;
+run;
+
+proc import out=money
+ datafile="/home/u61526503/sasuser.v94/imazz.csv"
+dbms=csv replace;
+run;
+******************************************Merge*******************************************
+Data A;
+Input ID Name$ Height;
+cards;
+1 A 1
+3 B 2
+5 C 2
+7 D 2
+9 E 2
+;
+run;
+
+Data B;
+Input ID Name$ Weight;
+cards;
+2 A 2
+4 B 3
+5 C 4
+7 D 5
+;
+run;
+
+Step 1 : Both the data sets must be SORTED by the variable you want to use for merging
+
+Step 2 : The variable you want to use for merging must have same name in both the datasets
+
+proc sort data = A;
+by id;
+run;
+proc sort data = B;
+by id;
+run;
+
+Types of JOINS
+-Inner Joins
+
+Data dummy;
+Merge A (IN = X) B (IN=Y);
+by ID;
+If X and Y;
+run;
+
+-Right joins
+Data dummy;        
+Merge A (IN = X) B (IN=Y);
+by ID;
+If Y ; /if x
+run;
+
+-full join
+Merge A b;
+by ID;
+run;
+
+*************************-Proc steps
+
+-- Proc freq
+It calculates count/frequency and cumulative frequency of categories
+
+data example1;
+input x y$ z;
+cards;
+6 A 60
+6 A 70
+2 A 100
+;
+run;
+
+proc freq data = example1;
+tables y ;
+run;
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+--PROC MEANS 
+
+is mainly used to calculate descriptive statistics such as mean, 
+median, count, sum 
+mean the average of number(mean stddevaiton minimum maximum)
+
+proc means data= sashelp.class;
+var age height;
+run;
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+--Proc Sort
+
+(Ascending/Descending)
+data readin;
+input ID Name $ Score;
+cards;
+2     David   45
+9     David   74
+1     Sam     45
+;
+run;
+proc sort data = readin;
+by id;
+run;
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Proc transpose
+data school;
+input Name $ class age Roll_number sex $;
+cards;
+Piyush 12 20 1011 M
+Muthu 30 20 1022 F
+Zombie 30 40 1055 M
+;
+run;
+
+proc print data=school;
+run;
+
+/* coverting horizontal table to vertical */
+
+ID: Means Column Name
+VAR: Means Number of Observation
+
+proc transpose data=school out=new;
+id Name;
+var Roll_number class Age sex;
+run;
+
+proc sort data=new out=out_ver;
+by _Name_;
+run;
+
+--Proc print
+
+The Proc PRINT prints the observations in a SAS data set using all or 
+some of the variables
+
+proc print data=sashelp.class;
+run;
+
+--Proc Univeriate
+calculate extreme observations - the five lowest and five highest values.
+
+proc univariate data = sashelp.class;
+var age;
+run;
+
+--Proc Rank
+calculate rank for one or more numeric variables with PROC RANK
+Ranking
+1-- VAR option is used to specify numeric variable (s) for which you want to calculate rank
+2--  RANKS option tells SAS to name the rank variable
+
+data temp;
+input ID Gender $ Score;
+cards;
+1 M 33
+2 M 94
+3 M 66
+;
+run;
+
+proc rank data=temp out = result;
+var Score;
+ranks ranking;
+run;
+
+--Proc append
+PROC APPEND in SAS to append the values of one dataset to the end of another dataset.
+
+data temp1;
+input ID Gender $ Score;
+cards;
+1 M 33
+2 M 94
+3 M 66
+;
+run;
+
+data temp2;
+input ID Gender $ Score;
+cards;
+1 M 3
+2 M 4
+3 M 6
+;
+run;
+
+proc append
+    base=temp1
+    data=temp2;
+run;
+
+proc print data=temp1;
+
+--Proc content
+
+proc content data=sashelp.class;
+run;
+
+--Proc format
+proc format;
+value age_f
+	10-12="Group A"
+	12-15="Group B" ;
+
+value $sex
+	M="Male"
+	F="Female"
+	
+;
+run;
+
+data tom;
+set sashelp.class;
+Agegroup=age;
+sexgroup=sex;
+format Agegroup age_f. sexgroup sex.;
+run;
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-- Merging Dataset Horizontally 
+
+Data A;
+Input ID Name$ Height;
+cards;
+1 A 1
+3 B 2
+5 C 2
+7 D 2
+9 E 2
+;
+run;
+Data B;
+Input ID Name$ Weight;
+cards;
+2 A 2
+4 B 3
+5 C 4
+7 D 5
+;
+run;
+
+proc sort data = a;
+by id;
+run;
+proc sort data = b;
+by id;
+run;
+
+Data dummy;        
+Merge A (IN = X) B (IN=Y);
+by ID;
+If X ;
+run;
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>STATEMENT'S<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+---> keep
+
+data swamy;
+set sashelp.class (keep=name age);
+run;
+
+---> Drop
+
+data swamy;
+set sashelp.class (drop=name age);
+run;
+
+--> Rename
+
+data tommy;
+set sashelp.class;
+rename age=myage;
+run;
+
+--> Retain
+
+data onme;
+retain height;
+set sashelp.class;
+run;
+
+--> Title & Footnote
+
+title "My Name";
+footnote "The end";
+proc print data=sashelp.class;
+run;
+
+--> Label
+
+data onme;
+label name="Myname";
+set sashelp.class;
+run;
+
+--> Length 
+
+data example2;
+length Name $30.;
+input ID Name $ Score;
+cards;
+1 Deepans_Mulla 22
+2 AttaPatt 21
+3 Roman_narayan 33
+;
+run;
+
+--> Format
+
+proc format;
+value age_f
+	10-12="Group A"
+	12-15="Group B" ;
+
+value $sex
+	M="Male"
+	F="Female"
+	
+;
+run;
+
+data tom;
+set sashelp.class;
+Agegroup=age;
+sexgroup=sex;
+format Agegroup age_f. sexgroup sex.;
+run;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

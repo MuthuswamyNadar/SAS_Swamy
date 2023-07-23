@@ -1,0 +1,61 @@
+* Create the data (using Input and cards) with 4 observation (3m)
+
+* How many types of Function in SAS ? (3m)
+
+* What is the full-form of SAS ? Condition to create Data step ? (3m)
+
+* How many types of SAS library ? what are the steps 
+  to create library in SAS ? (3m)
+
+* What are the Rules for creating SAS Library ? (3m)
+
+* How many Data types in SAS with example ? & access sashelp.class
+  ,give condition to visible only males (3m)
+
+* if A=" My name " and  B=" Tom " ,combine A & B with function and 
+  on next line add delimeter '*' (3m)
+
+* what are the step to import the file in SAS and with syntax (3m)
+
+* write any five statements with examples ? (3m)
+
+* create any two table and combine using set statements ? (3m)
+
+* Merge dataset horizontaly using Joins (All 4 joins) ? (5m)
+
+* Any 6 proc steps with examples ? & write the syntax of do loop ? (5m)
+
+* Convert horizontal table to vertical using proc transpose ? (5m)
+
+* Write all Date function in SAS ? with example/syntax ? (5m)
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

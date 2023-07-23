@@ -1,0 +1,286 @@
+---------------ODS--------------------
+
+ODS Meaning (Output Delivery System)
+
+ods file_type (pdf,excel,word,rtf,html) file="location"
+style=;
+
+ods file_type close;
+
+ods pdf file="/home/u63179371/A_FIles/money.pdf";
+proc print data=sashelp.class style=gantt;
+run;
+ods pdf close;
+
+proc template;
+list styles;
+run;
+
+---------------Macros--------------------
+
+Macros allows us to avoid repetitive section
+
+
+
+---------------Types of Loops--------------------
+
+1) Iterative Do loops
+2) Conditional Do loops---(do untill and do while)
+
+
+1)
+data account;
+balances=5000;
+output;
+do x=1 to 8;
+balances=balances+1000;
+output;
+end;
+run;
+
+2) Conditional loops
+
+data carloan;
+loan=10000;
+numberofloan=0;
+output;
+do untill(loan=0);
+loan=loan-1000;
+numberofloan+1;
+output;
+end;
+run;
+
+data carloan;
+loan=10000;
+numberofloan=0;
+output;
+do while (loan>0);
+loan=loan-1000;
+numberofloan+1;
+output;
+end;
+run;
+
+-----------------Arrays-----------------------
+
+data value;
+input col1-col4;
+cards;
+10 . 15 .
+15 . 36 29
+29 . 65 . 34
+;
+run;
+
+data miss;
+set value;
+array=m(4) col1-col4;
+do i=1 to 4;
+if missing (m(i)) then m(i)=0;
+end;
+run;
+
+-------------------- Macro's -------------------
+
+Macros are used to automate the repetitive task
+Make the work faster by automating the task
+Macro variable is used to store data, always character
+
+
+-%let
+
+%let name =value (syntax)
+
+/* Macros */
+
+1) %let and %put
+2) %macro and %mend
+3) call symput
+
+% let z=5
+
+/* Creating macro variable */
+
+%let age1=20;
+%let sex=M;
+
+data sample;
+set sashelp.class;
+where age=&age1 and sex="&sex";
+run;
+
+proc print data=sample;
+run;
+
+/* Macro Parameter */
+
+%macro typeofage(age1,sex2);
+
+set sashelp.class;
+where age=&age1 and sex="&sex";
+run;
+
+proc print data=sample;
+run;
+
+%mend;
+
+%typeofage(13,"M");
+%typeofage(age1=12,sex="M");
+
+/* symput 
+
+data null;
+call symput ("Age","15");
+call symput ("sex","M");
+run;
+
+
+-----------------------------------------
+
+proc sql;
+select distinct age from sashelp.class;
+quit;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------Email-Writing---------------------------------------------
+
+Dear Hiring Manager,
+
+I am Actively Looking for opportunities in the SAS Programmer My resume is attached
+ to this email for your reference
+
+I  am having good knowledge of SAS base & advance and I am certified in SAS & SQL.
+
+I have also created TBALEs using dummy data sets.
+
+I have good knowledge of using procedures like Proc means, proc freq, proc Univariate proc print,
+ proc contents, and proc sort.and SAS functions like character functions, numeric functions, 
+DateTime functions .
+
+I appreciate you taking the time to review my resume
+Looking forward to hearing from you
+
+Thanks & Regards,
+Swamy Nadar
+swamyakanadar@gmail.com
+https://www.linkedin.com/in/swamynadar/
+
+
+*****************************************************************************************************
+
+Dear sir/ma'am,
+
+My name is Jaykumar Girase,
+
+I'm a base sas specialist certified.
+
+i have completed base and advance sas and i have great knowledge of SDTM and ADAM.
+Please be noted that I have done my graduation in Bachelor in pharmacy, passed out in the year of 2022 and 
+currently I'm a fresher
+
+I'm highly interested in the opportunity and I believe myself to be a good fit for the same.
+
+is there any opportunity in your company then please let me know .
+
+************************************************************************************************
+
+Hello, i am a trained professional in SAS BASE ADVANCE AND CLINICAL if your company has a vacancy
+for a role related to SAS PROGRAMMER then do refer me or else let me know..
+ It would be a big help to start my career
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Learning 
+
+Applying
+
+Interview
+
+Interview-crack
+
+HR Final 
+
+Job
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
